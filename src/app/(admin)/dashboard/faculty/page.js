@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 const faculty = [
   
   { _id: "f1", name: "Dr. Ananya Sharma", email: "ananya@edu.in", department: "Computer Science", role: "admin",  performanceScore: 92 },
@@ -58,7 +60,7 @@ export default function FacultyPage() {
           const pct  = f.performanceScore
 
           return (
-            <div
+            <Link href={`/dashboard/faculty/a`}
               key={f._id}
               className="group relative bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-2xl p-6 transition-all duration-300 overflow-hidden"
             >
@@ -125,7 +127,7 @@ export default function FacultyPage() {
                   View Profile →
                 </button>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
