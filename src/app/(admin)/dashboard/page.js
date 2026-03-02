@@ -1,4 +1,8 @@
+"use client"
+
 // ── Static Data ───────────────────────────────────────────────────────────────
+
+import { useAdmin } from "../../../../Context/AdminContext"
 
 const faculty = [
   { _id: "f1", name: "Dr. Ananya Sharma", email: "ananya@edu.in", department: "Computer Science", role: "admin",  performanceScore: 92 },
@@ -90,8 +94,12 @@ const scoreColor = (s) =>
 const scoreBarColor = (s) =>
   s >= 90 ? "from-emerald-500 to-teal-400" : s >= 75 ? "from-indigo-500 to-violet-400" : "from-amber-500 to-orange-400"
 
+
+
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 export default function Overview() {
+  const {user,token} = useAdmin();
   const now = new Date()
   const dateStr = now.toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" })
 
@@ -161,7 +169,7 @@ export default function Overview() {
               <span className="mono text-sm font-bold text-white">{feeRate}%</span>
             </div>
             <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden">
-              <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-700" style={{ width: `${feeRate}%` }} />
+              <div className="h-full rounded-full bg-linear-to-r from-indigo-500 to-violet-500 transition-all duration-700" style={{ width: `${feeRate}%` }} />
             </div>
             <div className="flex justify-between mt-2 text-xs text-slate-600">
               <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />Collected ₹{collectedFees.toLocaleString()}</span>
@@ -195,7 +203,7 @@ export default function Overview() {
             {[...faculty].sort((a, b) => b.performanceScore - a.performanceScore).map((f, i) => (
               <div key={f._id} className="flex items-center gap-4 px-5 py-4 hover:bg-slate-800/40 transition-colors">
                 <span className="mono text-xs text-slate-700 w-4 shrink-0">#{i + 1}</span>
-                <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${deptColors[f.department] ?? "from-slate-500 to-slate-600"} flex items-center justify-center text-xs font-bold text-white shrink-0`}>
+                <div className={`w-9 h-9 rounded-xl bg-linear-to-br ${deptColors[f.department] ?? "from-slate-500 to-slate-600"} flex items-center justify-center text-xs font-bold text-white shrink-0`}>
                   {initials(f.name)}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -205,7 +213,7 @@ export default function Overview() {
                   </div>
                   <div className="flex items-center gap-2 mt-1.5">
                     <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full bg-gradient-to-r ${scoreBarColor(f.performanceScore)}`} style={{ width: `${f.performanceScore}%` }} />
+                      <div className={`h-full rounded-full bg-linear-to-r ${scoreBarColor(f.performanceScore)}`} style={{ width: `${f.performanceScore}%` }} />
                     </div>
                     <span className={`mono text-xs font-bold shrink-0 ${scoreColor(f.performanceScore)}`}>{f.performanceScore}</span>
                   </div>
